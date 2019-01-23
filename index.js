@@ -18,7 +18,9 @@ exports.handler = (event, context, callback) => {
     var month = date.getMonth()+1;
     var day   = date.getDate();
     var hour  = date.getHours();
-    var min   = date.getMinutes()
+    var min   = date.getMinutes();
+    var sec   = date.getSeconds();
+    var milli = date.getMilliseconds();
     
     // 値が1桁であれば '0'を追加 
     if (month < 10) {
@@ -37,8 +39,18 @@ exports.handler = (event, context, callback) => {
         min   = '0' + min;
     }
     
+    if (sec   < 10) {
+        sec   = '0' + sec;
+    }
+
+    if (milli   < 10) {
+        milli   = '00' + milli;
+    } else if (milli < 100) {
+        milli   = '0' + milli;
+    }
+
     // 出力
-    var date_now = year + '/' + month  + '/' + day + ' ' + hour  + ':'+ min;
+    var date_now = year + '/' + month  + '/' + day + ' ' + hour + ':' + min + ':' + sec + ' ' + milli;
     console.log('Received event:' + date_now);
 
     console.log("event:", event);
